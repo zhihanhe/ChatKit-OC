@@ -216,6 +216,13 @@ NSString *const LCCKSessionServiceErrorDomain = @"LCCKSessionServiceErrorDomain"
 
 // 除了 sdk 的上面三个回调调用了，还在 open client 的时候调用了，好统一处理
 - (void)updateConnectStatus {
+    /* for better UI presentation */
+    ///
+    if (_client.status == AVIMClientStatusPaused ||
+        _client.status == AVIMClientStatusResuming) {
+        return;
+    }
+    ///
     self.connect = _client.status == AVIMClientStatusOpened;
     [[NSNotificationCenter defaultCenter] postNotificationName:LCCKNotificationConnectivityUpdated object:@(self.connect)];
 }
@@ -292,6 +299,7 @@ NSString *const LCCKSessionServiceErrorDomain = @"LCCKSessionServiceErrorDomain"
         [conversation queryMessagesFromServerWithLimit:unread callback:^(NSArray *objects, NSError *error) {
             if (!error && (objects.count > 0)) {
                 [self receiveMessages:objects conversation:conversation isUnreadMessage:YES];
+                [conversation readInBackground];
             }
         }];
         [self playLoudReceiveSoundIfNeededForConversation:conversation];
@@ -335,6 +343,7 @@ NSString *const LCCKSessionServiceErrorDomain = @"LCCKSessionServiceErrorDomain"
         [[NSNotificationCenter defaultCenter] postNotificationName:LCCKNotificationCustomTransientMessageReceived object:userInfo];
     }
     [self receiveMessages:@[message] conversation:conversation isUnreadMessage:NO];
+    [conversation readInBackground];
 }
 
 - (void)receiveMessages:(NSArray<AVIMTypedMessage *> *)messages conversation:(AVIMConversation *)conversation isUnreadMessage:(BOOL)isUnreadMessage {
