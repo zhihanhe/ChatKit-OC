@@ -21,7 +21,7 @@
 #import "AVIMConversation+LCCKExtension.h"
 #import "LCCKConversationViewController.h"
 #import "LCCKConversationListViewController.h"
-#import "LCCKMessage.h"
+#import "LCCKMessage.h" 
 #import "LCCKConversationListService.h"
 #import "AVIMMessage+LCCKExtension.h"
 
@@ -737,6 +737,7 @@ NSString *const LCCKConversationServiceErrorDomain = @"LCCKConversationServiceEr
             [conversation queryMessagesWithLimit:limit callback:callback];
         } else {
             //会先根据本地缓存判断是否有必要从服务端拉取，这个方法不能用于首次拉取
+            [conversation queryMessagesBeforeId:nil timestamp:timestamp limit:limit callback:callback];
             [conversation queryMessagesBeforeId:messageId
                                       timestamp:timestamp
                                           limit:limit
