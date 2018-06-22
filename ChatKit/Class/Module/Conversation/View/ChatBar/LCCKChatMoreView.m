@@ -120,7 +120,9 @@
     [self.sortedInputViewPluginArray enumerateObjectsUsingBlock:^(Class _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         id<LCCKInputViewPluginDelegate> inputViewPlugin = [aClass new];
         NSString *title = [inputViewPlugin pluginTitle];
-        [titles addObject:title];
+        if (titles.count < 2) {
+            [titles addObject:title];
+        }
     }];
     return [titles copy];
 }
@@ -130,7 +132,9 @@
     [self.sortedInputViewPluginArray enumerateObjectsUsingBlock:^(Class _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         id<LCCKInputViewPluginDelegate> inputViewPlugin = [aClass new];
         UIImage *image = [inputViewPlugin pluginIconImage];
-        [images addObject:image];
+        if (images.count < 2) {
+            [images addObject:image];
+        }
     }];
     return [images copy];
 }
