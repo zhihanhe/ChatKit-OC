@@ -28,3 +28,5 @@ Pod::Spec.new do |s|
   s.dependency "CYLDeallocBlockExecutor", "~> 1.1.2"
 
 end
+
+# 使用的版本是 0.8.14
