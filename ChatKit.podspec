@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.dependency "AVOSCloud" , "~> 11.6.2"
   s.dependency "AVOSCloudIM", "~> 11.6.2"
-  s.dependency "MJRefresh",
+  s.dependency "MJRefresh" 
   s.dependency "Masonry" , "~> 1.0.1"
   s.dependency "SDWebImage" , "~> 3.8.0"
   s.dependency "FMDB" , "~> 2.6.2"
